@@ -110,6 +110,12 @@ class Addtocart {
 		 * of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-addtocart-i18n.php';
+		
+		/**
+		 * The class responsible for add to cart button functionality
+		 * of the plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-addtocart-button.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -153,9 +159,11 @@ class Addtocart {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new Addtocart_Admin( $this->get_plugin_name(), $this->get_version() );
-
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+
+		$plugin_admin_atcb = new Addtocart_Button( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_filter( 'woocommerce_loop_add_to_cart_link', $plugin_admin_atcb, 'change_simple_shop_add_to_cart',10,2 );
 
 	}
 
