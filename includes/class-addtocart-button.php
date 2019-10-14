@@ -40,26 +40,62 @@ class Addtocart_Button {
 	/**
 	 * Add to cart button text
 	 */
-	function change_simple_shop_add_to_cart( $html, $product ){
+	public function atcb_replace_single_text( $text, $product = null ) {
+
+		return $text = 'Kinna lon';
+	}
+
+	// public function atcb_replace_loop_text( $text, $product = null ) {
+
+	// 	return $text = 'Baiccha lon';
+	// }
+
+	public function atcb_replace_loop_text($name, $product = null) {
+        global $uatcOptions;
+
+        if ($product == null)
+        {
+            //if the passed in product is null, try to get the product from global variable
+            global $product;
+
+            if ($product == null)
+                return $name;
+        }
+        $type = $product->get_type();
 
 
-		$category_ammunition = $product->get_categories();
+        // create a log channel
+        // $log = new Logger('name');
+        // $log->pushHandler(new StreamHandler(plugin_dir_path(__FILE__). '/your.log', Logger::WARNING));
+        //
+        // $log->error('Type is: '.  $type);
 
+		switch ( $type ) {
 
-	   if (strstr($category_ammunition, 'Ammunition')) { // Add Your Category Here 'Ammuntion'
+			case 'simple':
+			return $name = 'Kinna lon';
+			break;
 
-  $html = sprintf( '<a id="read-more-btn" rel="nofollow" href="%s" data-product_id="%s"  class="button vp-btn">%s</a>',
-				   esc_url( get_the_permalink() ),
-				   esc_attr( $product->get_id() ),
-				   esc_html(  __( 'Read More', 'woocommerce' ) )
-		   );
-		   $category_ammunition = $product->get_categories();
-	   }
+			case 'variable':
+			return $name = 'variable lon';
+			break;
 
-	   return $html;
-   }
+			case 'grouped':
+			return $name = 'grouped lon';
+			break;
 
+			case 'external':
+			return $name = 'external lon';
+			break;
 
+			case 'booking':
+			return $name = 'booking lon';
+			break;
 
+			default:
+			return $name;
+		}
+
+    }
 
 }

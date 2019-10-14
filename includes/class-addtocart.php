@@ -163,7 +163,8 @@ class Addtocart {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		$plugin_admin_atcb = new Addtocart_Button( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_filter( 'woocommerce_loop_add_to_cart_link', $plugin_admin_atcb, 'change_simple_shop_add_to_cart',10,2 );
+		$this->loader->add_filter( 'woocommerce_product_single_add_to_cart_text', $plugin_admin_atcb, 'atcb_replace_single_text', 10, 2 );
+		$this->loader->add_filter( 'woocommerce_product_add_to_cart_text', $plugin_admin_atcb, 'atcb_replace_loop_text', 10, 2 );
 
 	}
 
