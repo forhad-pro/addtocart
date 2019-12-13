@@ -35,6 +35,10 @@ class Addtocart_Button {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+		// Grab the metadata from the database
+		$textsdfg = get_post_meta( get_the_ID(), '_yourprefix_text', true );
+		var_dump( $textsdfg );
+
 	}
 
 	/**
@@ -42,7 +46,13 @@ class Addtocart_Button {
 	 */
 	public function atcb_replace_single_text( $text, $product = null ) {
 
-		return $text = 'Kinna lon';
+		// return $text = 'Kinna lon';
+		$text = 'Kinna lon';
+
+		$button_prev = '&raquo; ' . $text;
+		$button_next = '&laquo; ' . $text;
+
+		return $button_prev;
 	}
 
 	// public function atcb_replace_loop_text( $text, $product = null ) {
@@ -73,7 +83,7 @@ class Addtocart_Button {
 		switch ( $type ) {
 
 			case 'simple':
-			return $name = 'Kinna lon';
+			return $name = '⟳ ' . 'Kinna lon';
 			break;
 
 			case 'variable':
@@ -96,6 +106,21 @@ class Addtocart_Button {
 			return $name;
 		}
 
-    }
+	}
+	
+
+	/**
+	 * How to remove any hook.
+	 */
+	function remove_hooks(){
+		// 
+		// hook
+		/**
+		 * Remove product price from single page
+		 * Reference: plugins\woocommerce\templates\content-single-product.php
+		 */
+		// remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+	}
+
 
 }

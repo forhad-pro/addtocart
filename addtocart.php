@@ -65,12 +65,9 @@ register_deactivation_hook( __FILE__, 'deactivate_addtocart' );
 require plugin_dir_path( __FILE__ ) . 'includes/class-addtocart.php';
 
 /**
- * Get the bootstrap!
- * (Update path to use cmb2 or CMB2, depending on the name of the folder.
- * Case-sensitive is important on some systems.)
+ * Framework!
  */
-require_once plugin_dir_path( __FILE__ ) . 'admin/cmb2/init.php';
-require_once plugin_dir_path( __FILE__ ) . 'admin/example-functions.php';
+require plugin_dir_path( __FILE__ ) . 'admin/atc-framework/codestar-framework.php';
 
 /**
  * Begins execution of the plugin.

@@ -118,6 +118,12 @@ class Addtocart {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-addtocart-button.php';
 
 		/**
+		 * The class responsible for add to cart button custom post type and submenu
+		 * of the plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-addtocart-cpt.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-addtocart-admin.php';
@@ -162,10 +168,16 @@ class Addtocart {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		$plugin_cpt = new Addtocart_CPT( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'admin_menu', $plugin_cpt, 'register_my_custom_submenu_page', 99 );
+
 		$plugin_admin_atcb = new Addtocart_Button( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_filter( 'woocommerce_product_single_add_to_cart_text', $plugin_admin_atcb, 'atcb_replace_single_text', 10, 2 );
 		$this->loader->add_filter( 'woocommerce_product_add_to_cart_text', $plugin_admin_atcb, 'atcb_replace_loop_text', 10, 2 );
-
+		
+		// To remove any hook.
+		$this->loader->add_action('plugins_loaded', $plugin_admin_atcb,'remove_hooks');
+		
 	}
 
 	/**
