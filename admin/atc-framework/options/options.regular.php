@@ -86,13 +86,13 @@ CSF::createSection( $prefix, array(
       )
     ),
     array(
-      'id'      => 'atc_icon_show',
+      'id'      => 'atc_regular_icon_show',
       'type'    => 'checkbox',
       'title'   => 'Show Icon',
       'default' => true
     ),
     array(
-      'id'         => 'atc_icon_choose',
+      'id'         => 'atc_regular_icon_choose',
       'type'       => 'button_set',
       'title'      => 'Choose Icon',
       'options'    => array(
@@ -101,10 +101,10 @@ CSF::createSection( $prefix, array(
         'google'   => '<i class="fa fa-google"></i>',
       ),
       'default'    => 'facebook',
-      'dependency' => array( 'atc_icon_show', '==', 'true' ),
+      'dependency' => array( 'atc_regular_icon_show', '==', 'true' ),
     ),
     array(
-      'id'          => 'atc_icon_alignment',
+      'id'          => 'atc_regular_icon_alignment',
       'type'        => 'select',
       'title'       => 'Icon Alignment',
       'options'     => array(
@@ -131,7 +131,7 @@ CSF::createSection( $prefix, array(
       ),
     ),
     array(
-      'id'       => 'atc_border',
+      'id'       => 'atc_regular_border',
       'type'     => 'border',
       'title'    => 'Border',
       'all_icon' => 'Size',
@@ -139,7 +139,7 @@ CSF::createSection( $prefix, array(
       'color'    => false
     ),
     array(
-      'id'        => 'atc_border_color',
+      'id'        => 'atc_regular_border_color',
       'type'      => 'color_group',
       'title'     => 'Border Color',
       'options'   => array(
@@ -152,7 +152,7 @@ CSF::createSection( $prefix, array(
       )
     ),
     array(
-      'id'          => 'atc_border_radius',
+      'id'          => 'atc_regular_border_radius',
       'type'        => 'border',
       'title'       => 'Border Radius',
       'top_icon'    => 'Top',
@@ -181,7 +181,7 @@ CSF::createSection( $prefix, array(
     array(
       'id'          => 'atc_regular_Padding',
       'type'        => 'spacing',
-      'title'       => 'Margin',
+      'title'       => 'Padding',
       'top_icon'    => 'Top',
       'bottom_icon' => 'Bottom',
       'left_icon'   => 'Left',
