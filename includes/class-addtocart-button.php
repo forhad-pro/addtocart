@@ -40,98 +40,136 @@ class Addtocart_Button {
 		// echo '<pre>';
 		// var_dump($options);
 		// echo '</pre>';
-	}
 
-	// A Custom function for get an option
-	// if ( ! function_exists( 'atc_get_option' ) ) {
-	public function atc_get_option( $option = '', $default = null ) {
-
-		$options = get_option( '_addtocart_options' ); // Attention: Set your unique id of the framework
-		return ( isset( $options[ $option ] ) ) ? $options[ $option ] : $default;
+		// echo '<pre>';
+		// var_dump( $this->atc_get_option( 'atc_simple_fieldset' )['atc_simple_icon'] );
+		// echo '</pre>';
 	}
-	// }
-	// echo atc_get_option( 'opt-text', 'default value' );
-	// var_dump(atc_get_option( 'atc_txt_simple_products' ));
 
 	/**
-	 * Add to cart button text
+	 * A Custom function for get an option
+	 *
+	 * @param string $option
+	 * @param [type] $default
+	 * @return void
 	 */
-	public function atcb_replace_single_text( $text, $product = null ) {
+	public function atc_get_option( $option = '', $default = null ) {
 
-		// return $text = 'Kinna lon';
-		$text = 'Kinna lon';
-
-		$button_prev = '&raquo; ' . $text;
-		$button_next = '&laquo; ' . $text;
-
-		return $button_prev;
+		$options = get_option( '_addtocart_options' );
+		return ( isset( $options[ $option ] ) ) ? $options[ $option ] : $default;
 	}
 
-	// public function atcb_replace_loop_text( $text, $product = null ) {
+	/**
+	 * Add to cart button text.
+	 * For single page.
+	 * All products.
+	 *
+	 * @param [type] $text
+	 * @param [type] $product
+	 * @return void
+	 */
+	// public function atcb_replace_single_text( $text, $product = null ) {
 
-	// return $text = 'Baiccha lon';
+	// return $text = 'Kinna lon';
+	// $text = 'Kinna lon';
+
+	// $button_prev = '&raquo; ' . $text;
+	// $button_next = '&laquo; ' . $text;
+
+	// return $button_prev;
 	// }
 
-	public function atcb_replace_loop_text( $name, $product = null ) {
-		global $uatcOptions;
+	// public function atcb_replace_loop_text( $name, $product = null ) {
 
-		if ( $product == null ) {
-			// if the passed in product is null, try to get the product from global variable
-			global $product;
+	// 	global $uatcOptions;
 
-			if ( $product == null ) {
-				return $name;
-			}
-		}
+	// 	if ( $product == null ) {
+	// 		// if the passed in product is null, try to get the product from global variable
+	// 		global $product;
+
+	// 		if ( $product == null ) {
+	// 			return $name;
+	// 		}
+	// 	}
+	// 	$type = $product->get_type();
+
+	// 	switch ( $type ) {
+
+	// 		case 'simple':
+	// 			// echo $this->atc_get_option( 'atc_simple_fieldset' )['atc_simple_txt'];
+	// 			// return '<i class="fa fa-facebook"></i> ' . $this->atc_get_option( 'atc_simple_fieldset' )['atc_simple_txt'];
+	// 			break;
+
+	// 		case 'variable':
+	// 			return $name = 'variable lon';
+	// 			break;
+
+	// 		case 'grouped':
+	// 			return $name = 'grouped lon';
+	// 			break;
+
+	// 		case 'external':
+	// 			return $name = 'external lon';
+	// 			break;
+
+	// 		case 'booking':
+	// 			return $name = 'booking lon';
+	// 			break;
+
+	// 	}
+
+	// }
+
+	/**
+	 * Create new button.
+	 * All Products.
+	 *
+	 * @return void
+	 */
+	function atcb_new_add_to_cart() {
+		global $product;
 		$type = $product->get_type();
-
-		// create a log channel
-		// $log = new Logger('name');
-		// $log->pushHandler(new StreamHandler(plugin_dir_path(__FILE__). '/your.log', Logger::WARNING));
-		//
-		// $log->error('Type is: '.  $type);
-
+		$link = $product->get_permalink();
 		switch ( $type ) {
 
 			case 'simple':
-				return $name = '⟳ ' . $this->atc_get_option( 'atc_txt_simple_products' );
-			break;
+				echo '<a href="' . esc_url( $link ) . '" class="button addtocartbutton"><i class="fa fa-shopping-bag"></i> ' . $this->atc_get_option( 'atc_simple_fieldset' )['atc_simple_txt'] . '</a>';
+				break;
 
 			case 'variable':
-				return $name = 'variable lon';
-			break;
+				// echo 'variable lon';
+				echo '<a href="' . $link . '" data-quantity="1" class="button product_type_' . $type . ' add_to_cart_button ajax_add_to_cart" data-product_id="15" data-product_sku="woo-beanie" aria-label="Add “Beanie” to your cart" rel="nofollow">Add to cart</a>';
+				break;
 
 			case 'grouped':
-				return $name = 'grouped lon';
-			break;
+				echo 'grouped lon';
+				break;
 
 			case 'external':
-				return $name = 'external lon';
-			break;
+				echo 'external lon';
+				break;
 
 			case 'booking':
-				return $name = 'booking lon';
-			break;
+				echo 'booking lon';
+				break;
 
 			default:
-				return $name;
+				echo '<a href="' . $link . '" class="button addtocartbutton"><i class="fa fa-shopping-bag"></i> ALL</a>';
+				break;
 		}
-
 	}
 
-
 	/**
-	 * How to remove any hook.
+	 * Remove Add to Cart Button.
+	 * All Products.
 	 */
 	function remove_hooks() {
-		//
-		// hook
 		/**
 		 * Remove product price from single page
 		 * Reference: plugins\woocommerce\templates\content-single-product.php
 		 */
-		// remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+		remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
 	}
-
 
 }

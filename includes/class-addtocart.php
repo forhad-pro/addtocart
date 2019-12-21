@@ -110,7 +110,7 @@ class Addtocart {
 		 * of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-addtocart-i18n.php';
-		
+
 		/**
 		 * The class responsible for add to cart button functionality
 		 * of the plugin.
@@ -174,10 +174,11 @@ class Addtocart {
 		$plugin_admin_atcb = new Addtocart_Button( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_filter( 'woocommerce_product_single_add_to_cart_text', $plugin_admin_atcb, 'atcb_replace_single_text', 10, 2 );
 		$this->loader->add_filter( 'woocommerce_product_add_to_cart_text', $plugin_admin_atcb, 'atcb_replace_loop_text', 10, 2 );
-		
+		// $this->loader->add_filter( 'woocommerce_after_add_to_cart_button', $plugin_admin_atcb, 'add_content_after_addtocart', 10, 2 );
 		// To remove any hook.
-		$this->loader->add_action('plugins_loaded', $plugin_admin_atcb,'remove_hooks');
-		
+		$this->loader->add_action( 'plugins_loaded', $plugin_admin_atcb, 'remove_hooks' );
+		// Add to curt button custom text
+		$this->loader->add_action( 'woocommerce_after_shop_loop_item', $plugin_admin_atcb, 'atcb_new_add_to_cart' );
 	}
 
 	/**
