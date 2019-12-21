@@ -75,11 +75,6 @@ class Addtocart_CPT {
 
     public function atc_custom_submenu_page_callback() {
 
-        ?>
-			<h1>
-				<?php esc_html_e( 'Welcome to my custom admin page.', 'my-plugin-textdomain' ); ?>
-			</h1>
-		<?php
     }
     
 }

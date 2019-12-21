@@ -20,5 +20,6 @@
  */
 
 require_once plugin_dir_path( __FILE__ ) .'classes/setup.class.php';
+require_once plugin_dir_path( __FILE__ ) . 'options/options.init.php';
 require_once plugin_dir_path( __FILE__ ) . 'options/options.regular.php';
 require_once plugin_dir_path( __FILE__ ) . 'options/options.sticky.php';
